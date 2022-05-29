@@ -1,5 +1,5 @@
 <style>
-    @import url("https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css");/*
+    /*@import url("https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css");*//*
 @import url("https://fonts.googleapis.com/css2?family=Jura:wght@500;600;900&display=swap");*/
 
 .banderas_info  {/*
