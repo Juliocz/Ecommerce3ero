@@ -1,3 +1,18 @@
-:root{
 
+:root {
+    --theme1-bg-color: #077257;
+    --theme1-bg-color-light: #08b178;
+    --theme1-t-color: #ffffff;
+}
+
+.miboton1_success{
+    background-color: var(--theme1-bg-color);
+    color: var(--theme1-t-color);
+    border-radius: 10px;
+    transition: all ease-out 0.2s;
+    padding: 5px;
+    border-style: none;
+}
+.miboton1_success:hover{
+    background-color: var(--theme1-bg-color-light);
 }
