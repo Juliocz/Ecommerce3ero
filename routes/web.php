@@ -1,7 +1,9 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+include_once 'user.php';
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,4 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     //return view('welcome');
     return view('landing.landing');
+})->name('landing');
+
+Route::get('/md5',function(Request $request){
+    return md5($request->query('pass'));
 });
+

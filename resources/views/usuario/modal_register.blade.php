@@ -10,7 +10,8 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form style="display: grid;grid-gap: 5px;">
+            <form style="display: grid;grid-gap: 5px;" method="post" action="{{route('user_register')}}">
+                @csrf
                 <div style="display:flex;flex-wrap: wrap;justify-content: center;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
                         <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
@@ -19,7 +20,7 @@
                 </div>
                 <div class="form-group">
                   <label for="exampleInputEmail1">Nombres:</label>
-                  <input type="email" class="form-control" id="nombre" name="nombre" placeholder="Jose">
+                  <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Jose">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Apellidos:</label>
@@ -27,7 +28,7 @@
                 </div>
                 <div class="form-group">
                   <label for="exampleFormControlInput1">Correo:</label>
-                  <input type="email" class="form-control" id="correo" name="coreo" placeholder="name@example.com">
+                  <input type="email" class="form-control" id="correo" name="correo" placeholder="name@example.com">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Usuario:</label>

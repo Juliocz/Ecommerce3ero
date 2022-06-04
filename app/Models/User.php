@@ -10,6 +10,11 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
+
+    protected $table="user";//nombre de la tabla
+    protected $primaryKey="id";//ponemos el nombre de la llave primaria esto servira para ejcutar otros metodos despues o consultas
+    public $timestamps = false;//para que no se cree columnas tiempo al insertar
+
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -41,4 +46,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static function isExist($user,$password){
+        return self::where('usuario',$user)
+        ->where('password',$password)->first();
+    }
 }
