@@ -8,6 +8,7 @@
     <script src="{{asset('js/3..6.0jquery.min.js')}}"></script>
     <link href="{{asset('landingres/css/root.css')}}" rel="stylesheet"  crossorigin="anonymous">
     <title>JSHOP</title>
+    @include('util.utiljs')
 </head>
 <body>
     @yield('body')

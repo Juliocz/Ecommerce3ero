@@ -24,3 +24,4 @@ Route::get('/md5',function(Request $request){
     return md5($request->query('pass'));
 });
 
+

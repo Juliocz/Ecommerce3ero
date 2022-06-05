@@ -6,12 +6,19 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="">MI TIENDA VIRTUAL</a>
+            </li>
 
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-          </li>
           @if (!Auth::check())
-
+            {{-- @if (Auth::user()->tipo_usuario=='super_admin')
+            <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{{route('admin_dashboard')}}">Dashboard Admin</a>
+            </li>
+            @endif
+            @if (Auth::user()->tipo_usuario=='super_admin')
+            <li><a class="dropdown-item" href="{{route('admin_dashboard')}}" >Mi dashboardAdmin</a></li>
+            @endif --}}
 
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -21,7 +28,7 @@
                     <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
                   </svg>
             </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown" >
               <li><a class="dropdown-item" href="#" onclick="UserLogin.showLogin();">Ingresar</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" onclick="UserRegister.showRegister();" href="#">Registrarse</a></li>
@@ -37,8 +44,12 @@
                   </svg>
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            @if (Auth::user()->tipo_usuario=='super_admin')
+            <li><a class="dropdown-item" href="{{route('admin_dashboard')}}" >Mi dashboardAdmin</a></li>
+            @endif
+            <li><a class="dropdown-item" onclick="" href="{{route('upload_image_user')}}">Subir archivo</a></li>
             <li><a class="dropdown-item" onclick="" href="#">Editar mi informacion</a></li>
-              <li><a class="dropdown-item" href="{{route('user_logout')}}" >Cerrar sesion</a></li>
+            <li><a class="dropdown-item" href="{{route('user_logout')}}" >Cerrar sesion</a></li>
             </ul>
           </li>
 

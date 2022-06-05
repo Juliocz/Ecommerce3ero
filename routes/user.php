@@ -18,3 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::post('/user/register',[UserController::class,'registrarUsuario'])->name('user_register');
 Route::post('/user/login',[UserController::class,'loginUsuario'])->name('user_login');
 Route::get('/user/logout',[UserController::class,'logoutUsuario'])->name('user_logout');
+
+Route::get('/user/admin_dashboard',[UserController::class,'getDashboardAdmin'])->name('admin_dashboard');
+
+Route::get('/user/upload_my_image',[UserController::class,'uploadImagenGet'])->name('upload_image_user')->middleware('auth');
+Route::post('/user/upload_my_image',[UserController::class,'uploadImagenPost'])->name('upload_image_user')->middleware('auth');
+
