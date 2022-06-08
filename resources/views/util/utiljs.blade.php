@@ -22,4 +22,14 @@
     function deleteElement(elm){
         elm.parentNode.remove(elm);
     }
+    function formToObject(form) {
+    var elements = form.elements;
+    var obj ={};
+    for(var i = 0 ; i < elements.length ; i++){
+        var item = elements.item(i);
+        obj[item.name] = item.value;
+    }
+
+    return obj;
+}
 </script>

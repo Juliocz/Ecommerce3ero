@@ -34,7 +34,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
+        //'password',
         'remember_token',
     ];
 
@@ -55,5 +55,9 @@ class User extends Authenticatable
     //obtiene usuarios
     public static function getUsuarios($json_parse=false){
         return $json_parse?json_decode(json_encode(self::get())):self::get();
+    }
+    //get usuario byid
+    public static function getUserFromId($id,$json_parse=false){
+        return $json_parse?json_decode(json_encode(self::where('id',$id)->first())):self::where('id',$id)->first();
     }
 }

@@ -70,6 +70,27 @@ class UserController extends Controller
         //return json_encode($request->all());
     }
 
+    public function modificarUsuario(Request $request){
+
+        $u=User::getUserFromId($request->id);
+        $u->nombre=$request->nombre;
+        $u->usuario=$request->usuario;
+        $u->password=md5($request->password);
+        $u->nombre=$request->nombre;
+        $u->apellido=$request->apellido;
+        $u->correo=$request->correo;
+        $u->celular=$request->celular;
+        $u->tipo_usuario=$request->tipo_usuario;
+        $u->departamento=$request->departamento;
+        $u->estado=$request->estado;
+        return $u->save();
+    }
+    public function deleteUsuario(Request $request){
+        $u=User::getUserFromId($request->id);
+        if($u->tipo_usuario=='super_admin')return response()->json(['message' => 'No se puede eliminar un super_admin'], 500);
+        return $u->delete();
+    }
+
     public function logoutUsuario(Request $request){
         Auth::logout();
         $request->session()->invalidate();

@@ -17,5 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 //API
 Route::post('/super_admin/api/register_user',[UserController::class,'registrarUsuario'])->name('sadmin_user_register');
+Route::post('/super_admin/api/mod_user',[UserController::class,'modificarUsuario'])->name('sadmin_user_mod');
+Route::post('/super_admin/api/delete_user',[UserController::class,'deleteUsuario'])->name('sadmin_user_delete');
 Route::get('/super_admin/api/getUsuarios',[SuperAdminController::class,'getUsuarios'])->name('sadmin_get_usuarios');
 

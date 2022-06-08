@@ -13,6 +13,8 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         //
-        '/super_admin/api/register_user'
+        '/super_admin/api/register_user',
+        '/super_admin/api/mod_user',
+        '/super_admin/api/delete_user'
     ];
 }
