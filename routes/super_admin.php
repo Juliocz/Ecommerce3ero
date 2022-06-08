@@ -1,10 +1,10 @@
 <?php
 
+use App\Http\Controllers\SuperAdminController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-include_once 'user.php';
-include_once 'super_admin.php';
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,14 +15,7 @@ include_once 'super_admin.php';
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    //return view('welcome');
-    return view('landing.landing');
-})->name('landing');
-
-Route::get('/md5',function(Request $request){
-    return md5($request->query('pass'));
-});
-
+//API
+Route::post('/super_admin/api/register_user',[UserController::class,'registrarUsuario'])->name('sadmin_user_register');
+Route::get('/super_admin/api/getUsuarios',[SuperAdminController::class,'getUsuarios'])->name('sadmin_get_usuarios');
 

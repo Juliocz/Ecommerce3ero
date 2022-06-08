@@ -51,4 +51,9 @@ class User extends Authenticatable
         return self::where('usuario',$user)
         ->where('password',$password)->first();
     }
+
+    //obtiene usuarios
+    public static function getUsuarios($json_parse=false){
+        return $json_parse?json_decode(json_encode(self::get())):self::get();
+    }
 }

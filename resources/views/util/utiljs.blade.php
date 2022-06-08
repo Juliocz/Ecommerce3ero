@@ -19,4 +19,7 @@
         elm_tab.classList.add('show');//muestro el tab actual
         elm_tab.classList.add('active');
     }
+    function deleteElement(elm){
+        elm.parentNode.remove(elm);
+    }
 </script>

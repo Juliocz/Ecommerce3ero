@@ -68,7 +68,9 @@
     </div>
   </nav> --}}
   <div class="tab-content" id="nav-tabContent">
-    <div class="tab-pane fade show active" id="nav_crud_usuario" role="tabpanel" aria-labelledby="nav-home-tab">crud usuarios</div>
+    <div class="tab-pane fade show active" id="nav_crud_usuario" role="tabpanel" aria-labelledby="nav-home-tab">
+        @include('dashboard.cruds.usuarios_crud')
+    </div>
     <div class="tab-pane fade" id="nav_crud_tiendas_virtuales" role="tabpanel" aria-labelledby="nav-profile-tab">tiendas virtuales</div>
     <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">3</div>
   </div>
