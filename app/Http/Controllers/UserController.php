@@ -6,6 +6,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use stdClass;
 use Throwable;
 
 class UserController extends Controller
@@ -63,6 +64,9 @@ class UserController extends Controller
         //$u->ubicacion_lat=null;
         //$u->ubicacion_lon=null;
 
+        if(Auth::check())
+            $u->user_id_created=Auth::user()->id;
+
         $iduser=$u->save();
 
         return "Se registro usuario correctamente: ".$iduser;
@@ -75,7 +79,10 @@ class UserController extends Controller
         $u=User::getUserFromId($request->id);
         $u->nombre=$request->nombre;
         $u->usuario=$request->usuario;
+
+        if($request->ismod_password)
         $u->password=md5($request->password);
+
         $u->nombre=$request->nombre;
         $u->apellido=$request->apellido;
         $u->correo=$request->correo;
@@ -83,6 +90,10 @@ class UserController extends Controller
         $u->tipo_usuario=$request->tipo_usuario;
         $u->departamento=$request->departamento;
         $u->estado=$request->estado;
+        if(Auth::check())
+            $u->user_id_modified=Auth::user()->id;
+
+
         return $u->save();
     }
     public function deleteUsuario(Request $request){
@@ -103,16 +114,7 @@ class UserController extends Controller
     }
 
     public function uploadImagenGet(Request $request){
-        $url_folder='midrive/userfiles/';
-        if(Auth::user()->tipo_usuario=='super_admin'){
-            $url_folder='midrive/adminfiles/';
-        }
-        $url_folder=$url_folder.Auth::user()->id.'/';
-
-
-        //devuelvo archivos del usuario, creo su carpeta si no existe
-        //devuelvo nombres de archivos con sus urls
-        try{mkdir($url_folder, 0777,true);}catch(Throwable $ex){}//creo carpeta usuario
+        $url_folder=self::getRelativePathFolderUser();
         $arrFiles = scandir($url_folder);//escaneo archivos
         $arrFilesUrl=array();
         foreach($arrFiles as $f){array_push($arrFilesUrl,route('landing').'/'.$url_folder.$f);}//obtengo urls reales
@@ -126,26 +128,63 @@ class UserController extends Controller
     public function uploadImagenPost(Request $request){
         $name=$_FILES['archivo']['name'];
         $name_temp=$_FILES['archivo']['tmp_name'];
-        //si es super admin, se sube archivos a carpeta midrive/adminfiles/userid/nombre_archivo
-        if(Auth::user()->tipo_usuario=='super_admin'){
 
-            try{mkdir("midrive/adminfiles/".Auth::user()->id,0777,true);}catch(Throwable $ex){}//creo carpeta usuario
-            move_uploaded_file($name_temp,"midrive/adminfiles/".Auth::user()->id."/".$name);
-            $arrFiles = scandir('midrive/adminfiles/'.Auth::user()->id);
-            var_dump($arrFiles);
-            return view('upload_image')
-            ->with('mis_files_array',$arrFiles);
-
-        }
-        else{
-            //para usuario simple falta validar tamaño, numero maximo de archivos, la extension ya esta validada
-            try{mkdir("midrive/userfiles/".Auth::user()->id, 0777,true);}catch(Throwable $ex){}//creo carpeta usuario
-            if(pathinfo($name)['extension']=='php')$name=$name.'.file';//si alguien trata de subir archivo php, lo renombra a .file
-            //falta validar tamaño archivo
-            //falta validar numero maximo de archivos del usuario
-            move_uploaded_file($name_temp,"midrive/userfiles/".Auth::user()->id."/".$name);
-        }
+        //falta validar tamaño archivo
+        //falta validar numero maximo de archivos del usuario
+        if(pathinfo($name)['extension']=='php')$name=$name.'.file';//si alguien trata de subir archivo php, lo renombra a .file
+        move_uploaded_file($name_temp,self::getRelativePathFolderUser().$name);//muevo archivo a la carpeta de usuario
         return redirect()->route('upload_image_user');
 
+        // si es super admin, se sube archivos a carpeta midrive/adminfiles/userid/nombre_archivo
+        // if(Auth::user()->tipo_usuario=='super_admin'){
+
+        //     try{mkdir("midrive/adminfiles/".Auth::user()->id,0777,true);}catch(Throwable $ex){}//creo carpeta usuario
+        //     move_uploaded_file($name_temp,"midrive/adminfiles/".Auth::user()->id."/".$name);
+        //     $arrFiles = scandir('midrive/adminfiles/'.Auth::user()->id);
+        //     var_dump($arrFiles);
+        //     return view('upload_image')
+        //     ->with('mis_files_array',$arrFiles);
+
+        // }
+        // else{
+        //     //para usuario simple falta validar tamaño, numero maximo de archivos, la extension ya esta validada
+        //     try{mkdir("midrive/userfiles/".Auth::user()->id, 0777,true);}catch(Throwable $ex){}//creo carpeta usuario
+        //     if(pathinfo($name)['extension']=='php')$name=$name.'.file';//si alguien trata de subir archivo php, lo renombra a .file
+        //     //falta validar tamaño archivo
+        //     //falta validar numero maximo de archivos del usuario
+        //     move_uploaded_file($name_temp,"midrive/userfiles/".Auth::user()->id."/".$name);
+        // }
+        // return redirect()->route('upload_image_user');
+
+
+
+    }
+    public function getMysFilesList(){
+        //Obtiene lista de archivos del usuario, dependiendo si es admin o user
+        $url_folder=self::getRelativePathFolderUser();
+        $arrFiles = scandir($url_folder);//escaneo archivos
+        $arrFilesUrl=array();
+        foreach($arrFiles as $f){array_push($arrFilesUrl,route('landing').'/'.$url_folder.$f);}//obtengo urls reales
+        $files=array();
+        for($i=0;$i<count($arrFiles);$i++){
+            if($arrFiles[$i]=='.' || $arrFiles[$i]=='..')continue;
+            $ff=new stdClass();
+            $ff->name=$arrFiles[$i];
+            $ff->url=$arrFilesUrl[$i];
+            array_push($files,$ff);
+        }
+        return $files;
+    }
+
+
+    //util funciones
+    //obtiene carpeta relativa del usuario logueado actualmente ej: midrive/userFiles/1/
+    public static function getRelativePathFolderUser(){
+        $path='';
+        if(Auth::user()->tipo_usuario=='super_admin'){$path= "midrive/adminfiles/".Auth::user()->id.'/';}
+        else
+        $path= "midrive/userfiles/".Auth::user()->id.'/';
+        try{mkdir($path,0777,true);}catch(Throwable $ex){}//se crea carpeta si no existe
+        return $path;
     }
 }

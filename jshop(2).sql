@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-06-2022 a las 20:22:30
--- Versión del servidor: 10.4.22-MariaDB
--- Versión de PHP: 8.0.14
+-- Tiempo de generación: 24-08-2022 a las 21:24:15
+-- Versión del servidor: 10.4.24-MariaDB
+-- Versión de PHP: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -57,6 +57,70 @@ INSERT INTO `bitacora_tablas` (`id`, `usuario_id`, `sql_user`, `date`, `tabla`, 
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `categoria_banner_img`
+--
+
+CREATE TABLE `categoria_banner_img` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(30) DEFAULT NULL,
+  `url_imagen` varchar(200) NOT NULL,
+  `id_productos_categorias` int(11) NOT NULL,
+  `descripcion` varchar(50) DEFAULT NULL,
+  `creado` datetime NOT NULL DEFAULT current_timestamp(),
+  `modificado` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `categoria_banner_img`
+--
+
+INSERT INTO `categoria_banner_img` (`id`, `nombre`, `url_imagen`, `id_productos_categorias`, `descripcion`, `creado`, `modificado`) VALUES
+(1, 'Banner 1', '/midrive/adminfiles/2/banner1musica.png', 1, 'Ingresa a nuestra sucursal', '2022-08-24 11:43:29', '2022-08-24 11:44:01'),
+(2, 'Banner 2', '/midrive/adminfiles/2/banner2musica.png', 1, 'Ingresa a nuestra sucursal', '2022-08-24 11:43:29', '2022-08-24 11:44:01'),
+(3, 'Banner 1', '/midrive/adminfiles/2/banner1comp.png', 7, 'Ingresa a nuestra sucursal', '2022-08-24 11:43:29', '2022-08-24 11:44:01'),
+(4, 'Banner 2', '/midrive/adminfiles/2/banner2comp.png', 7, 'Ingresa a nuestra sucursal', '2022-08-24 11:43:29', '2022-08-24 11:44:01');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `producto`
+--
+
+CREATE TABLE `producto` (
+  `id` int(11) NOT NULL,
+  `id_categoria` int(11) NOT NULL,
+  `titulo` varchar(50) NOT NULL,
+  `subtittle` varchar(20) DEFAULT NULL,
+  `descripcion` varchar(500) NOT NULL,
+  `celular` varchar(14) NOT NULL,
+  `correo` varchar(50) DEFAULT NULL,
+  `ubicacion_lat` float DEFAULT NULL,
+  `ubicacion_lon` int(11) DEFAULT NULL,
+  `tags` varchar(50) DEFAULT NULL,
+  `precio` int(11) NOT NULL,
+  `estado_pro` varchar(20) NOT NULL,
+  `estado` varchar(20) NOT NULL,
+  `unidades` int(11) DEFAULT 1,
+  `privilegio_id` int(11) DEFAULT NULL,
+  `num_visitas` int(11) DEFAULT NULL,
+  `url_video` varchar(100) DEFAULT NULL,
+  `id_user_creado` int(11) DEFAULT NULL,
+  `id_user_modificado` int(11) DEFAULT NULL,
+  `creado` datetime NOT NULL DEFAULT current_timestamp(),
+  `modificado` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `producto`
+--
+
+INSERT INTO `producto` (`id`, `id_categoria`, `titulo`, `subtittle`, `descripcion`, `celular`, `correo`, `ubicacion_lat`, `ubicacion_lon`, `tags`, `precio`, `estado_pro`, `estado`, `unidades`, `privilegio_id`, `num_visitas`, `url_video`, `id_user_creado`, `id_user_modificado`, `creado`, `modificado`) VALUES
+(1, 7, 'PRODESCK 600 G1', 'Marca HP', 'Computadora en excelente estado, podras usarla tanto para estudios y trabajo', '69212155', 'julio@gmail.com', NULL, NULL, 'computadora,hp,monitor', 1000, 'nuevo', 'activo', 1, NULL, NULL, NULL, 2, 2, '2022-08-24 13:08:38', '2022-08-24 13:08:38'),
+(2, 7, 'PRODESCK 700 G1', 'Marca HP', 'Computadora en excelente estado, podras usarla tanto para estudios y trabajo2', '69212155', 'julio@gmail.com', NULL, NULL, 'computadora,hp,monitor', 1000, 'nuevo', 'activo', 1, NULL, NULL, NULL, 2, 2, '2022-08-24 13:08:38', '2022-08-24 13:08:38');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `productos_categorias`
 --
 
@@ -76,8 +140,32 @@ CREATE TABLE `productos_categorias` (
 --
 
 INSERT INTO `productos_categorias` (`nombre`, `descripcion`, `num_visitas`, `icon_url`, `id`, `banner_url`, `estado`, `id_tienda`) VALUES
-('Instrumentos musicales', 'En esta categoria podras ver instrumentos musicales de todo tipo, asi como tambien algunos tips y consejos de otros musicos.Asegurate de publicar aqui solo productos que tengan que ver con instrumentos musicales.', 0, 'http://localhost:8000/midrive/adminfiles/2/1 (1).jpg', 1, 'http://localhost:8000/midrive/adminfiles/2/lago-entre-las-montanas-y-cielo-estrellado_2560x1440_xtrafondos.com.jpg', 'activo', NULL),
-('Jugueteas', 'En esta seccion podras encontrar diversos juguetes para niños', 0, 'http://localhost:8000/midrive/adminfiles/2/1 (1).jpg', 2, 'http://localhost:8000/midrive/adminfiles/2/1 (1).jpg', 'activo', NULL);
+('Instrumentos musicales', 'En esta categoria podras ver instrumentos musicales de todo tipo, asi como tambien algunos tips y consejos de otros musicos.Asegurate de publicar aqui solo productos que tengan que ver con instrumentos musicales.', 0, 'http://localhost:8000/midrive/adminfiles/2/instrumentos.png', 1, 'http://localhost:8000/midrive/adminfiles/2/lago-entre-las-montanas-y-cielo-estrellado_2560x1440_xtrafondos.com.jpg', 'activo', NULL),
+('Juguetes', 'En esta seccion podras encontrar diversos juguetes para niños,de todo tipo. Diviertete', 0, 'http://localhost:8000/midrive/adminfiles/2/juguetes.png', 2, 'http://localhost:8000/midrive/adminfiles/2/1 (1).jpg', 'activo', NULL),
+('Computadoras', 'Aqui podras encontrar diferentes computadoras, con las mejores caracteristicas asi como buenas referencias', 0, NULL, 7, NULL, 'activo', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `producto_img`
+--
+
+CREATE TABLE `producto_img` (
+  `id` int(11) NOT NULL,
+  `id_producto` int(11) NOT NULL,
+  `url_imagen` varchar(100) DEFAULT NULL,
+  `creado` datetime NOT NULL DEFAULT current_timestamp(),
+  `modificado` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `producto_img`
+--
+
+INSERT INTO `producto_img` (`id`, `id_producto`, `url_imagen`, `creado`, `modificado`) VALUES
+(1, 1, '/midrive/adminfiles/2/c1.jpg', '2022-08-24 13:15:41', '2022-08-24 13:15:41'),
+(2, 2, '/midrive/adminfiles/2/c2.jpg', '2022-08-24 13:15:54', '2022-08-24 13:15:54'),
+(3, 1, '/midrive/adminfiles/2/c3.jpg', '2022-08-24 13:16:04', '2022-08-24 13:16:04');
 
 -- --------------------------------------------------------
 
@@ -214,9 +302,27 @@ ALTER TABLE `bitacora_tablas`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `categoria_banner_img`
+--
+ALTER TABLE `categoria_banner_img`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `producto`
+--
+ALTER TABLE `producto`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `productos_categorias`
 --
 ALTER TABLE `productos_categorias`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `producto_img`
+--
+ALTER TABLE `producto_img`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -237,10 +343,28 @@ ALTER TABLE `bitacora_tablas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
+-- AUTO_INCREMENT de la tabla `categoria_banner_img`
+--
+ALTER TABLE `categoria_banner_img`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `producto`
+--
+ALTER TABLE `producto`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT de la tabla `productos_categorias`
 --
 ALTER TABLE `productos_categorias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de la tabla `producto_img`
+--
+ALTER TABLE `producto_img`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `user`

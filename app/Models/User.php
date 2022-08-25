@@ -60,4 +60,16 @@ class User extends Authenticatable
     public static function getUserFromId($id,$json_parse=false){
         return $json_parse?json_decode(json_encode(self::where('id',$id)->first())):self::where('id',$id)->first();
     }
+
+    public static function findAllUsuarios($value_find,$json_parse=false){
+        $collection=self::where('nombre','LIKE','%'.$value_find.'%')
+        ->orWhere('apellido','LIKE','%'.$value_find.'%')
+        ->orWhere('usuario','LIKE','%'.$value_find.'%')
+        ->orWhere('tipo_usuario','LIKE','%'.$value_find.'%')
+        ->orWhere('estado','LIKE','%'.$value_find.'%')
+        ->orWhere('celular','LIKE','%'.$value_find.'%')
+         ->get();
+
+         return $json_parse?json_decode(json_encode($collection)):$collection;
+    }
 }

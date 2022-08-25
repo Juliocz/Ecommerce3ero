@@ -6,3 +6,7 @@ usuario simple
 
 julio123456
 123456
+
+
+CATEGORIAS CORRIENDO CON PRODUCTOS MOSTRANDO, computadora sale productos
+boton categoria esconder menu isquierdo

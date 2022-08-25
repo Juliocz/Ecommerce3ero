@@ -15,6 +15,10 @@ class VerifyCsrfToken extends Middleware
         //
         '/super_admin/api/register_user',
         '/super_admin/api/mod_user',
-        '/super_admin/api/delete_user'
+        '/super_admin/api/delete_user',
+        '/user/upload_file_user',
+        '/super_admin/api/registrarCategoria',
+        '/super_admin/api/modificarCategoria',
+        '/super_admin/api/eliminarCategoria'
     ];
 }

@@ -18,6 +18,15 @@ class SuperAdminController extends Controller
         //
     }
     public function getUsuarios(Request $request){
-        return User::getUsuarios();
+        if($request->query('find')==null || $request->query('find')=='null'){
+            return User::getUsuarios();
+        }
+        else
+        return User::findAllUsuarios($request->query('find'));
+    }
+
+    public function findUsuarios(Request $request){
+
+        return User::findAllUsuarios($request->find);
     }
 }

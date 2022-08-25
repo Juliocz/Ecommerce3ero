@@ -1,6 +1,9 @@
 @extends('layouts.base')
 
 @section('body')
+<div id='contenedor_uploadfile'>
+    <script>var c_uploadfile=document.querySelector('#contenedor_uploadfile');</script>
+@include('util.utilapijs')
 <style>
     .form_upload_image{
 
@@ -24,10 +27,30 @@
     @csrf
     <input type="file" name="archivo" id="archivoid" onchange="onchangeFile(this)">
     <img src="" alt="" id="preview_image" style="max-width: 100%;min-width: 50px;max-height: 100px;">
+    <div class="spinner-border text-success" role="status" id='loaderf' style="display:none;">
+        <span class="sr-only"></span>
+    </div>
     <input type="submit" value="SUBIR ARCHIVO Al SERVIDOR">
+    <div class='miboton1_success' onclick='uploadff()'>SUBIR ARCHIVO JQUERY</div>
 </form>
 
+
 <script>
+    function uploadff(){
+
+        c_uploadfile.querySelector('#loaderf').style.display='block';
+        uploadFilePost(c_uploadfile.querySelector('#archivoid'),
+        function(r){
+            c_uploadfile.querySelector('#loaderf').style.display='none';
+            showToastMsgSuccess('Se subio correctamente.');
+        }
+        ,
+        function(r){
+            c_uploadfile.querySelector('#loaderf').style.display='none';
+            showToastMsgError('No se pudo subir archivo.');
+        }
+        );
+    }
     function onchangeFile(input_file){
 
     var output=document.querySelector('#preview_image');
@@ -37,4 +60,5 @@
     }
     }
 </script>
+</div>
 @endsection

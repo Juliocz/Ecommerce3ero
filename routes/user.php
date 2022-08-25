@@ -23,4 +23,6 @@ Route::get('/user/admin_dashboard',[UserController::class,'getDashboardAdmin'])-
 
 Route::get('/user/upload_my_image',[UserController::class,'uploadImagenGet'])->name('upload_image_user')->middleware('auth');
 Route::post('/user/upload_my_image',[UserController::class,'uploadImagenPost'])->name('upload_image_user')->middleware('auth');
+Route::post('/user/upload_file_user',[UserController::class,'uploadImagenPost'])->name('upload_file_user')->middleware('auth');
 
+Route::get('/user/get_mys_files_list',[UserController::class,'getMysFilesList'])->name('get_files_user')->middleware('auth');

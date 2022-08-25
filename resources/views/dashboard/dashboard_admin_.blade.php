@@ -1,4 +1,4 @@
-@extends('dashboard.dashboard_admin')
+@extends('layouts.base2nav')
 @section('contenido')
 <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
     ABRIR DASHBOARD LATERAL
@@ -38,7 +38,11 @@
             </button>
           </h2>
           <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-            <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
+            <div class="accordion-body" style="padding:0px;">
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action" onclick="showTabBoostrapById('nav_crud_categoria'); $('#offcanvasExample').offcanvas('hide');">Administrar categoria</a>
+                </div>
+            </div>
           </div>
         </div>
         <div class="accordion-item">
@@ -72,7 +76,9 @@
         @include('dashboard.cruds.usuarios_crud')
     </div>
     <div class="tab-pane fade" id="nav_crud_tiendas_virtuales" role="tabpanel" aria-labelledby="nav-profile-tab">tiendas virtuales</div>
-    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">3</div>
+    <div class="tab-pane fade" id="nav_crud_categoria" role="tabpanel" aria-labelledby="nav-contact-tab">
+        @include('dashboard.cruds.categorias_crud')
+    </div>
   </div>
 
 @endsection

@@ -32,4 +32,14 @@
 
     return obj;
 }
+
+//pasa un inputfile a imagen src
+function inputFileToImageSrc(input_file,img_elm){
+
+var output=img_elm;
+output.src = URL.createObjectURL(input_file.files[0]);
+output.onload = function() {
+  URL.revokeObjectURL(output.src) // free memory
+}
+}
 </script>

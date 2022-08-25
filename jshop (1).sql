@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-06-2022 a las 20:22:30
+-- Tiempo de generación: 09-07-2022 a las 20:18:04
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.0.14
 
@@ -76,8 +76,8 @@ CREATE TABLE `productos_categorias` (
 --
 
 INSERT INTO `productos_categorias` (`nombre`, `descripcion`, `num_visitas`, `icon_url`, `id`, `banner_url`, `estado`, `id_tienda`) VALUES
-('Instrumentos musicales', 'En esta categoria podras ver instrumentos musicales de todo tipo, asi como tambien algunos tips y consejos de otros musicos.Asegurate de publicar aqui solo productos que tengan que ver con instrumentos musicales.', 0, 'http://localhost:8000/midrive/adminfiles/2/1 (1).jpg', 1, 'http://localhost:8000/midrive/adminfiles/2/lago-entre-las-montanas-y-cielo-estrellado_2560x1440_xtrafondos.com.jpg', 'activo', NULL),
-('Jugueteas', 'En esta seccion podras encontrar diversos juguetes para niños', 0, 'http://localhost:8000/midrive/adminfiles/2/1 (1).jpg', 2, 'http://localhost:8000/midrive/adminfiles/2/1 (1).jpg', 'activo', NULL);
+('Instrumentos musicales', 'En esta categoria podras ver instrumentos musicales de todo tipo, asi como tambien algunos tips y consejos de otros musicos.Asegurate de publicar aqui solo productos que tengan que ver con instrumentos musicales.', 0, 'http://localhost:8000/midrive/adminfiles/2/instrumentos.png', 1, 'http://localhost:8000/midrive/adminfiles/2/lago-entre-las-montanas-y-cielo-estrellado_2560x1440_xtrafondos.com.jpg', 'activo', NULL),
+('Juguetes', 'En esta seccion podras encontrar diversos juguetes para niños,de todo tipo. Diviertete', 0, 'http://localhost:8000/midrive/adminfiles/2/juguetes.png', 2, 'http://localhost:8000/midrive/adminfiles/2/1 (1).jpg', 'pendiente', NULL);
 
 -- --------------------------------------------------------
 
@@ -240,7 +240,7 @@ ALTER TABLE `bitacora_tablas`
 -- AUTO_INCREMENT de la tabla `productos_categorias`
 --
 ALTER TABLE `productos_categorias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `user`

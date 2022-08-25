@@ -41,6 +41,11 @@
                   <input type="password" class="form-control" id="password_r" name="password_r" placeholder="*******" required>
                 </div>
                 <div class="form-group modificarinputs">
+                    <label for="exampleInputPassword1">Modificar contraseña:</label>
+                    <input type="checkbox" id="ismod_password" >
+
+                </div>
+                <div class="form-group modificarinputs">
                     <label for="exampleInputPassword1">Estado:</label>
                    <select name="estado" id="estado" class="form-control">
                        <option value="">Seleccionar:</option>
@@ -146,10 +151,36 @@
     showFormRegister(){
         $('.registerinputs').show();
       $('.modificarinputs').hide();
+
+      this.setEnabledPasswordInput(true);
     }
     showFormMod(){
         $('.registerinputs').hide();
       $('.modificarinputs').show();
+      var thiss=this;
+      this.form.querySelector('#ismod_password').onchange=function(){
+          thiss.setEnabledPasswordInput(this.checked);
+      }
+      this.setEnabledPasswordInput(false);
+    }
+
+    setEnabledPasswordInput(isActive){
+        console.log(isActive)
+        if(isActive){
+        this.form.querySelector('#password').removeAttribute('disabled');
+        this.form.querySelector('#password').setAttribute('enabled','');
+
+        this.form.querySelector('#password_r').removeAttribute('disabled');
+        this.form.querySelector('#password_r').setAttribute('enabled','');
+        }else {
+        this.form.querySelector('#password').removeAttribute('enabled');
+        this.form.querySelector('#password').setAttribute('disabled','');
+
+        this.form.querySelector('#password_r').removeAttribute('enabled');
+        this.form.querySelector('#password_r').setAttribute('disabled','');
+        }
+
+        this.form.querySelector('#ismod_password').checked=isActive;
     }
     //asigno funciones desde afuera, cuando registre o de error correctamente
     setOnRegister(call_sucess=function(){},call_error=function(){}){
@@ -175,6 +206,7 @@
         user.password=this.form.querySelector('#password').value;
         user.departamento=this.form.querySelector('#departamento').value;
         user.celular=this.form.querySelector('#celular').value;
+        user.ismod_password=this.form.querySelector('#ismod_password').checked;
         return user;
     }
     setUserToForm(user){
